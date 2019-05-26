@@ -1,0 +1,4 @@
+# server config
+server.port: 8989
+# Shows git information about our build
+management.info.git.mode: full
