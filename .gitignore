@@ -56,3 +56,5 @@ HELP.md
 
 ### CUSTOM RULES
 *-dev.yml
+# Our containers directory
+/containers/
