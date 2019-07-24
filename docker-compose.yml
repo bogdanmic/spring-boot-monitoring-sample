@@ -27,3 +27,22 @@ services:
     volumes:
       - ./containers/postgres_home:/var/lib/postgresql/data
     command: "postgres -c log_statement=all -c log_duration=on -c log_min_duration_statement=-1"
+  mon-simple-service:
+    image: "mon-simple-service:latest"
+    container_name: mon-simple-service
+    build:
+      context: simple-service/
+      dockerfile: Dockerfile
+    expose:
+      - 8989
+    ports:
+      - "8989:8989"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    network_mode: "host"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms128m #This might not work as expected. Then again, maybe it does. Kind of hard to determine
+      - SPRING_PROFILES_ACTIVE=dev
