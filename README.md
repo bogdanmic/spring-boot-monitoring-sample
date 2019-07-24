@@ -17,13 +17,13 @@ For this we will use the following:
 We will need to start this first so that our service have were to register and
 discover each other.
 ```bash
-$ docker-compose up --build dev-consul
+$ docker-compose up --build mon-consul
 ```
 
 ### Postgres
 Before we start our applications we need to connect to the postgres server and 
 create our databases:
 ```bash
-$ docker exec -it dev-postgres psql -h localhost -U postgres
+$ docker exec -it mon-postgres psql -h localhost -U postgres
 $ create database simple_service;
 ```
