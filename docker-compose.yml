@@ -1,8 +1,8 @@
 version: '3'
 services:
-  dev-consul:
+  mon-consul:
     image: "consul:latest"
-    container_name: dev-consul
+    container_name: mon-consul
     expose:
       - 8300
       - 8600
@@ -13,9 +13,9 @@ services:
       - "8500:8500"
     command: "agent -dev -ui"
     network_mode: "host"
-  dev-postgres:
+  mon-postgres:
     image: "postgres:11"
-    container_name: dev-postgres
+    container_name: mon-postgres
     expose:
       - 5432
     ports:
