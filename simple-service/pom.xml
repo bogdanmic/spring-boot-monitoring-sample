@@ -17,6 +17,8 @@
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+		<springfox.swagger2.version>2.9.2</springfox.swagger2.version>
+		<springfox.swagger-ui.version>2.9.2</springfox.swagger-ui.version>
 	</properties>
 
 	<dependencies>
@@ -64,6 +66,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox.swagger2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox.swagger-ui.version}</version>
 		</dependency>
 	</dependencies>
 
