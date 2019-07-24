@@ -6,14 +6,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.spring.simple.service.aspect.LogPerformance;
+
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SimpleController {
+    @LogPerformance
     @GetMapping(value = "/api/v1/contacts")
     public String getContacts() {
         return String.format("Get contacts");
     }
 
+    @LogPerformance
     @GetMapping(value = "/api/v1/contacts/{contactId}")
     public String getContact(@PathVariable(name = "contactId") Long contactId) {
         return String.format("Get contact \'%s\'.", contactId);
