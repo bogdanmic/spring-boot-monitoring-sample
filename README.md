@@ -6,6 +6,7 @@ different services.
 
 For this we will use the following:
  - [spring-boot](https://start.spring.io/)
+ - [spring-boot-admin](https://github.com/codecentric/spring-boot-admin)
  - [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) with 
  [docker-compose](https://docs.docker.com/compose/install/)
  - [consul](https://www.consul.io/) - service registry and discovery
@@ -40,6 +41,17 @@ To start the postgres service:
 $ docker-compose up --build mon-postgres
 ```
 ### Simple service - [http://localhost:8989/swagger-ui.html](http://localhost:8989/swagger-ui.html)
+This is a simple service with a database that offers some endpoints to fetch some
+dummy data and a swagger-ui documentation. Also uses database migration scripts.
+```bash
+$ cd simple-service/
+$ mvn package -DskipTests
+$ cd ..
+$ docker-compose up --build mon-simple-service
+```
+### Boot Admin - [http://localhost:8990/#/applications](http://localhost:8990/#/applications)
+This is our spring-boot-admin service. It discovers and monitors our services that
+have registered in [consul](http://localhost:8500/ui/dc1/services).
 ```bash
 $ cd simple-service/
 $ mvn package -DskipTests

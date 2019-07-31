@@ -46,3 +46,22 @@ services:
     environment:
       - JAVA_OPTS=-Xmx512m -Xms128m #This might not work as expected. Then again, maybe it does. Kind of hard to determine
       - SPRING_PROFILES_ACTIVE=dev
+  mon-boot-admin:
+    image: "mon-boot-admin:latest"
+    container_name: mon-boot-admin
+    build:
+      context: boot-admin/
+      dockerfile: Dockerfile
+    expose:
+      - 8990
+    ports:
+      - "8990:8990"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    network_mode: "host"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms128m #This might not work as expected. Then again, maybe it does. Kind of hard to determine
+      - SPRING_PROFILES_ACTIVE=dev
