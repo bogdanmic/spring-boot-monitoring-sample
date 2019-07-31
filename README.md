@@ -14,7 +14,7 @@ For this we will use the following:
 
 ##TODO:
  - config server
- - spring boot admin
+ - spring boot admin -  enable metrics for our services and other actuator endpoints.
  - api gateway
  - all spring boot apps to be startable as docker
  - add security on the api gateway
@@ -53,8 +53,8 @@ $ docker-compose up --build mon-simple-service
 This is our spring-boot-admin service. It discovers and monitors our services that
 have registered in [consul](http://localhost:8500/ui/dc1/services).
 ```bash
-$ cd simple-service/
+$ cd boot-admin/
 $ mvn package -DskipTests
 $ cd ..
-$ docker-compose up --build mon-simple-service
+$ docker-compose up --build mon-boot-admin
 ```
