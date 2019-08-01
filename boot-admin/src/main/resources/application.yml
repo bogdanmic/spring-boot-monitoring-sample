@@ -3,7 +3,14 @@ server.port: 8990
 # Shows git information about our build
 management:
   info.git.mode: full
-  endpoint.health.show-details: always
+  endpoint:
+    health.show-details: always
+    env.keys-to-sanitize: username, password
+    configprops:
+      keys-to-sanitize: username, password
+  endpoints:
+    web.exposure:
+        include: info, health, metrics, env, beans, configprops, scheduledtasks, loggers, threaddump, mappings, httptrace, flyway, caches
 
 spring:
   # Give a name for the app. This will be used for the service name in consul registration.
@@ -15,6 +22,7 @@ spring:
     # Maybe we don't want to see consul. We w ill need to check this.
     discovery:
       ignored-services: consul
+  # Other notifications: http://codecentric.github.io/spring-boot-admin/2.1.6/#_notifications
   # Consul configs
   cloud:
     consul:
