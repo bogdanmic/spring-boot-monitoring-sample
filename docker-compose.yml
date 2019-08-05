@@ -1,0 +1,67 @@
+version: '3'
+services:
+  mon-consul:
+    image: "consul:latest"
+    container_name: mon-consul
+    expose:
+      - 8300
+      - 8600
+      - 8500
+    ports:
+      - "8300:8300"
+      - "8600:8600"
+      - "8500:8500"
+    command: "agent -dev -ui"
+    network_mode: "host"
+  mon-postgres:
+    image: "postgres:11"
+    container_name: mon-postgres
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    network_mode: "host"
+    environment: 
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    volumes:
+      - ./containers/postgres_home:/var/lib/postgresql/data
+    command: "postgres -c log_statement=all -c log_duration=on -c log_min_duration_statement=-1"
+  mon-simple-service:
+    image: "mon-simple-service:latest"
+    container_name: mon-simple-service
+    build:
+      context: simple-service/
+      dockerfile: Dockerfile
+    expose:
+      - 8989
+    ports:
+      - "8989:8989"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    network_mode: "host"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms128m #This might not work as expected. Then again, maybe it does. Kind of hard to determine
+      - SPRING_PROFILES_ACTIVE=dev
+  mon-boot-admin:
+    image: "mon-boot-admin:latest"
+    container_name: mon-boot-admin
+    build:
+      context: boot-admin/
+      dockerfile: Dockerfile
+    expose:
+      - 8990
+    ports:
+      - "8990:8990"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    network_mode: "host"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms128m #This might not work as expected. Then again, maybe it does. Kind of hard to determine
+      - SPRING_PROFILES_ACTIVE=dev

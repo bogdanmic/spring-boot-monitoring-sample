@@ -1,0 +1,46 @@
+# server config
+server.port: 8990
+# Shows git information about our build
+management:
+  info.git.mode: full
+  endpoint:
+    health.show-details: always
+    env.keys-to-sanitize: username, password
+    configprops:
+      keys-to-sanitize: username, password
+  endpoints:
+    web.exposure:
+        include: info, health, metrics, env, beans, configprops, scheduledtasks, loggers, threaddump, mappings, httptrace, flyway, caches
+
+spring:
+  # Give a name for the app. This will be used for the service name in consul registration.
+  application.name: boot-admin
+  main.banner-mode: "off"
+  # Active profile config
+  profiles.active: dev
+  boot.admin:
+    monitor.connect-timeout: 5000
+    # Maybe we don't want to see consul. We w ill need to check this.
+    discovery:
+      ignored-services: consul
+    notify.slack:
+        enabled: false
+        webhook-url: https://hooks.slack.com/services/your_hook_url
+        channel: '#your_channel'
+        username: 'boot-admin'
+        ignore-changes: ""
+  # Other notifications: http://codecentric.github.io/spring-boot-admin/2.1.6/#_notifications
+  # Consul configs
+  cloud:
+    consul:
+      discovery:
+        enabled: true # Enable/ disable the service(app) registration to consul.
+        fail-fast: true # If consul is not reachable, the app does crash
+        health-check-interval: 30s # How often should consul access the health contentChanged endpoint "/health"
+        # Making the Consul Instance ID Unique so we can register multiple instances of the same service.
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        prefer-ip-address: true
+        catalog-services-watch-delay: 30000 # I believe this is in milliseconds
+
+# When consul does the health check, every 5 mins, the config server is checked too.
+health.config.enabled: false
