@@ -14,9 +14,7 @@ For this we will use the following:
 
 ##TODO:
  - config server
- - spring boot admin -  enable metrics for our services and other actuator endpoints.
  - api gateway
- - all spring boot apps to be startable as docker
  - add security on the api gateway
  - add log aggregation and collection with es and kibana and json logs for our apps
 
@@ -42,7 +40,8 @@ $ docker-compose up --build mon-postgres
 ```
 ### Simple service - [http://localhost:8989/swagger-ui.html](http://localhost:8989/swagger-ui.html)
 This is a simple service with a database that offers some endpoints to fetch some
-dummy data and a swagger-ui documentation. Also uses database migration scripts.
+dummy data and a swagger-ui documentation. Also uses database migration scripts with flyway,
+a dummy scheduler, a dummy cache and service registry into consul.
 ```bash
 $ cd simple-service/
 $ mvn package -DskipTests
@@ -51,7 +50,9 @@ $ docker-compose up --build mon-simple-service
 ```
 ### Boot Admin - [http://localhost:8990/#/applications](http://localhost:8990/#/applications)
 This is our spring-boot-admin service. It discovers and monitors our services that
-have registered in [consul](http://localhost:8500/ui/dc1/services).
+have registered in [consul](http://localhost:8500/ui/dc1/services). Also it provides
+slack notifications if a service goes down or up. In order to use the slack notification,
+make sure you configure the app in the **application.yml** file
 ```bash
 $ cd boot-admin/
 $ mvn package -DskipTests
