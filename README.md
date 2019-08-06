@@ -59,3 +59,12 @@ $ mvn package -DskipTests
 $ cd ..
 $ docker-compose up --build mon-boot-admin
 ```
+
+### Api Gateway - [http://localhost:8991/actuator/health](http://localhost:8991/actuator/health)
+
+```bash
+$ cd api-gateway/
+$ mvn package -DskipTests
+$ cd ..
+$ docker-compose up --build mon-api-gateway
+```

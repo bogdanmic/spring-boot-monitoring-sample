@@ -65,3 +65,22 @@ services:
     environment:
       - JAVA_OPTS=-Xmx512m -Xms128m #This might not work as expected. Then again, maybe it does. Kind of hard to determine
       - SPRING_PROFILES_ACTIVE=dev
+  mon-api-gateway:
+    image: "mon-api-gateway:latest"
+    container_name: mon-api-gateway
+    build:
+      context: api-gateway/
+      dockerfile: Dockerfile
+    expose:
+      - 8991
+    ports:
+      - "8991:8991"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    network_mode: "host"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms128m #This might not work as expected. Then again, maybe it does. Kind of hard to determine
+      - SPRING_PROFILES_ACTIVE=dev
