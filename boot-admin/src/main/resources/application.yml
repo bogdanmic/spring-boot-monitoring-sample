@@ -19,6 +19,9 @@ spring:
   # Active profile config
   profiles.active: dev
   boot.admin:
+    # Because we use spring-cloud-gateway as a proxy we need to configure these
+    context-path: /sba/ # A context path so that we can use it in our proxy config
+    ui.public-url: http://localhost:8991/sba/ # The public domain/address on which our boot-admin service is accessible
     monitor.connect-timeout: 5000
     # Maybe we don't want to see consul. We w ill need to check this.
     discovery:

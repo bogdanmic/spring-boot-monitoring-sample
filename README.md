@@ -52,7 +52,9 @@ $ docker-compose up --build mon-simple-service
 This is our spring-boot-admin service. It discovers and monitors our services that
 have registered in [consul](http://localhost:8500/ui/dc1/services). Also it provides
 slack notifications if a service goes down or up. In order to use the slack notification,
-make sure you configure the app in the **application.yml** file
+make sure you configure the app in the **application.yml** file.
+Also the app is configured to work through the **api-gateway** proxy so it will not
+work anymore by itself. This setup is done so that we use the api-gateway to access our services.
 ```bash
 $ cd boot-admin/
 $ mvn package -DskipTests
@@ -61,7 +63,13 @@ $ docker-compose up --build mon-boot-admin
 ```
 
 ### Api Gateway - [http://localhost:8991/actuator/health](http://localhost:8991/actuator/health)
-
+This is a gateway for our apis:
+ - [http://localhost:8991/api/v1/contacts](http://localhost:8991/api/v1/contacts)
+ gives us access to the **simple-service** contacts api endpoint
+ - [http://localhost:8991/sba/](http://localhost:8991/sba/) gives us access to the
+ **boot-admin** service through the **api-gateway**. Bear in mind that we needed
+ to make some configurations so that the original url for the **boot-admin** does
+ not work anymore. 
 ```bash
 $ cd api-gateway/
 $ mvn package -DskipTests

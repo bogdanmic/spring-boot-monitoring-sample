@@ -26,6 +26,12 @@ spring:
         uri: lb://simple-service/api/v1/**
         predicates:
         - Path=/api/v1/**
+      - id: boot-admin-routes
+        uri: lb://boot-admin/sba/**
+        predicates:
+        - Path=/sba/**
+        # filters:
+        # - StripPrefix=1
     consul:
       discovery:
         enabled: true # Enable/ disable the service(app) registration to consul.
