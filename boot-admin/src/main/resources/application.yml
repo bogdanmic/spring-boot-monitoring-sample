@@ -5,9 +5,9 @@ management:
   info.git.mode: full
   endpoint:
     health.show-details: always
-    env.keys-to-sanitize: username, password
+    env.keys-to-sanitize: username, password, webhook-url
     configprops:
-      keys-to-sanitize: username, password
+      keys-to-sanitize: username, password, webhook-url
   endpoints:
     web.exposure:
         include: info, health, metrics, env, beans, configprops, scheduledtasks, loggers, threaddump, mappings, httptrace, flyway, caches
