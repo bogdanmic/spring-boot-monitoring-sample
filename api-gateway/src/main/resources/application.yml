@@ -20,6 +20,12 @@ spring:
   profiles.active: dev
   # Consul configs
   cloud:
+    gateway:
+      routes:
+      - id: simple-service-routes
+        uri: lb://simple-service/api/v1/**
+        predicates:
+        - Path=/api/v1/**
     consul:
       discovery:
         enabled: true # Enable/ disable the service(app) registration to consul.
